@@ -7,6 +7,10 @@ import technicalblog.model.User;
 public class UserService {
 
     public boolean login(User user) {
-        return user.getUsername().equals("validUser");
+        if (user.getUsername().equals("validUser")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

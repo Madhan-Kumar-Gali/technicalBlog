@@ -31,6 +31,11 @@ public class UserController {
         return "users/registration";
     }
 
+    @RequestMapping("users/logout")
+    public String logout() {
+        return "index";
+    }
+
     @RequestMapping(value = "users/login", method = RequestMethod.POST)
     public String loginUser(User user) {
         if (userService.login(user)) {
@@ -42,7 +47,11 @@ public class UserController {
 
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
     public String registerUser(User user) {
-        return "users/login";
+        if (userService.login(user)) {
+            return "posts";
+        } else {
+            return "users/login";
+        }
     }
 
     @RequestMapping(value = "users/logout", method = RequestMethod.POST)
