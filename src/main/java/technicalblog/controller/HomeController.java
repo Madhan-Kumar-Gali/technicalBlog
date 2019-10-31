@@ -12,12 +12,16 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    private PostService postService;
+
     public HomeController() {
         System.out.println("*** Home Controller ***");
     }
 
     @Autowired
-    private PostService postService;
+    public HomeController(PostService postService) {
+        this.postService = postService;
+    }
 
     @RequestMapping("/")
     public String getAllPosts(Model model) {

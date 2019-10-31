@@ -1,40 +1,40 @@
 package technicalblog.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import technicalblog.model.Post;
+import technicalblog.repository.PostRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.TypedQuery;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class PostService {
 
-    @PersistenceUnit(unitName = "techblog")
-    private EntityManagerFactory emf;
+    private PostRepository postRepository;
 
     public PostService() {
         System.out.println("*** Post Service ***");
     }
 
-    public List<Post> getAllPosts() {
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<Post> query = em.createQuery("SELECT p from Post p", Post.class);
-        return query.getResultList();
+    @Autowired
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
     }
 
-    public List<Post> getOnePost() {
+    public List<Post> getAllPosts() {
+        return postRepository.getAllPosts();
+    }
 
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<Post> query = em.createQuery("SELECT p from Post p WHERE p.id = 4", Post.class);
-        return query.getResultList();
+    public Post getOnePost() {
+        return postRepository.getLatestPost();
     }
 
     public void createPost(Post newPost) {
-
+        newPost.setDate(new Date());
+        postRepository.createPost(newPost);
+        System.out.println("New Post: "+ newPost);
     }
 
 }

@@ -15,11 +15,14 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Autowired
     private PostService postService;
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(PostService postService, UserService userService) {
+        this.postService = postService;
+        this.userService = userService;
+    }
 
     @RequestMapping("users/login")
     public String login() {
