@@ -1,6 +1,6 @@
 <!Doctype html>
 
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
 
 <head th:replace="layout :: site-head">
     <title>Spring MVC Application - Login</title>
@@ -10,6 +10,7 @@
 
 <h2>Please Login:</h2>
 
+<!--/*@thymesVar id="User" type=""*/-->
 <form method="post" th:object="${User}">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username"/>
