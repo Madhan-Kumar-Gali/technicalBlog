@@ -45,4 +45,17 @@ public class PostController {
         model.addAttribute("post",post);
         return "posts/edit";
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/editPost")
+    public String editPostSubmit(@RequestParam(name="postId") Integer postId, Post updatedPost) {
+        updatedPost.setId(postId);
+        postService.updatePost(updatedPost);
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/deletePost", method = RequestMethod.POST)
+    public String deletePostSubmit(@RequestParam(name="postId") Integer postId) {
+        postService.deletePost(postId);
+        return "redirect:/posts";
+    }
 }

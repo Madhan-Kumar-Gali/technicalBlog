@@ -41,4 +41,13 @@ public class PostService {
         return postRepository.getPost(postId);
     }
 
+    public void updatePost(Post updatedPost) {
+        updatedPost.setDate(new Date());
+        postRepository.updatePost(updatedPost);
+    }
+
+    public void deletePost(Integer postId) {
+        postRepository.deletePost(postId);
+    }
+
 }
