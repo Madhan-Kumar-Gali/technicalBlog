@@ -37,4 +37,8 @@ public class PostService {
         System.out.println("New Post: "+ newPost);
     }
 
+    public Post getPost(Integer postId) {
+        return postRepository.getPost(postId);
+    }
+
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import technicalblog.model.Post;
 import technicalblog.service.PostService;
 
@@ -36,5 +37,12 @@ public class PostController {
     public String createPost(Post newPost) {
         postService.createPost(newPost);
         return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/editPost", method = RequestMethod.GET)
+    public String editPost(@RequestParam(name="postId") Integer postId, Model model) {
+        Post post = postService.getPost(postId);
+        model.addAttribute("post",post);
+        return "posts/edit";
     }
 }
