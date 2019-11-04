@@ -2,6 +2,7 @@ package technicalblog.repository;
 
 import org.springframework.stereotype.Repository;
 import technicalblog.model.Post;
+import technicalblog.model.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -63,6 +64,19 @@ public class PostRepository {
             transaction.begin();
             Post post = em.find(Post.class, postId);
             em.remove(post);
+            transaction.commit();
+        }catch(Exception e) {
+            transaction.rollback();
+        }
+    }
+
+    public void registerUser(User newUser) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            em.persist(newUser);
             transaction.commit();
         }catch(Exception e) {
             transaction.rollback();
