@@ -13,8 +13,13 @@ public class UserService {
         this.postRepository = postRepository;
     }
 
-    public boolean login(User user) {
-        return user.getUsername().equals("validUser");
+    public User login(User user) {
+        User existingUser = postRepository.checkUser(user.getUsername(), user.getPassword());
+        if (existingUser != null) {
+            return existingUser;
+        } else {
+            return null;
+        }
     }
 
     @SuppressWarnings("unused")
