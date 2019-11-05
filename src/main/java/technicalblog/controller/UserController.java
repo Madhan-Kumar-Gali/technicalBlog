@@ -11,6 +11,7 @@ import technicalblog.model.UserProfile;
 import technicalblog.service.PostService;
 import technicalblog.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -46,9 +47,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "users/login", method = RequestMethod.POST)
-    public String loginUser(User user) {
+    public String loginUser(User user, HttpSession session) {
         User existingUser = userService.login(user);
         if (existingUser != null) {
+            session.setAttribute("loggedUser", existingUser);
             return "redirect:/posts";
         } else {
             return "users/login";
