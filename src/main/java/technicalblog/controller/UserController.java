@@ -64,7 +64,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "users/logout", method = RequestMethod.POST)
-    public String logout(Model model) {
+    public String logout(Model model, HttpSession session) {
+        session.invalidate();
         List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
         return "index";
